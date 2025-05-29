@@ -1,0 +1,22 @@
+import numpy as np
+import pandas as pd
+from scipy.signal import correlate
+
+def moving_average(x, window):
+    return pd.Series(x).rolling(window=window, center=True).mean().to_numpy()
+
+# 音と振動（正規化済み）データ
+sound = np.array([...])
+vibration = np.array([...])
+
+# ウィンドウ幅の候補
+windows = [10, 50, 100, 200, 500, 1000]
+
+# 相関計算
+results = []
+for w in windows:
+    sound_smooth = moving_average(sound, w)
+    vib_smooth = moving_average(vibration, w)
+    valid_idx = ~np.isnan(sound_smooth) & ~np.isnan(vib_smooth)
+    corr = np.corrcoef(sound_smooth[valid_idx], vib_smooth[valid_idx])[0, 1]
+    results.append((w, corr))
