@@ -1,0 +1,5 @@
+python detect.py \
+  --weights /c/Users/rinda/Desktop/best.pt \
+  --source /c/Users/rinda/Videos/phase1_video.mp4 \
+  --conf 0.25 \
+  --name phase1_detect_test
